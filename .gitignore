@@ -1,0 +1,15 @@
+# Deny by default. Add only individually reviewed public files below.
+*
+!/.gitignore
+!/README.md
+!/src/
+/src/*
+!/src/analyze_sample.py
+!/samples/
+/samples/*
+!/samples/synthetic_observations.csv
+!/docs/
+/docs/*
+!/docs/sample-data.md
+!/docs/demo-output.md
+!/docs/engineering-notes.md
