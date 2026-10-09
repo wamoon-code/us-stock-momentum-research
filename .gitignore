@@ -16,3 +16,4 @@
 !/docs/architecture.md
 !/docs/research-validation.md
 !/samples/synthetic_outcomes.csv
+!/src/analyze_research_outcomes.py
