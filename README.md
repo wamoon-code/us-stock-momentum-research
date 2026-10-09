@@ -194,6 +194,8 @@ python src/analyze_sample.py
 
 ## 폴더 구성
 
+```text## 폴더 구성
+
 ```text
 us-stock-momentum-research/
 ├── README.md
@@ -205,7 +207,9 @@ us-stock-momentum-research/
 └── docs/
     ├── sample-data.md
     ├── demo-output.md
-    └── engineering-notes.md
+    ├── engineering-notes.md
+    ├── architecture.md
+    └── research-validation.md
 ```
 
 ---
