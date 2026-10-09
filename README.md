@@ -166,17 +166,23 @@ Out-of-Sample Validation
 
 민감한 인증정보, 실제 시장 데이터, 핵심 연구 임계값과 매매전략은 포함하지 않습니다.
 
-대신 프로젝트에서 중요하게 다루고 있는 데이터 처리 원칙을 확인할 수 있도록 별도의 합성 데이터 예제를 제공합니다.
+대신 프로젝트에서 중요하게 다루고 있는 데이터 처리 원칙을 확인할 수 있도록 합성 데이터를 이용한 두 가지 예제를 제공합니다.
+
+첫 번째 예제는 기본적인 관측 데이터의 중복과 가격 유효성을 검사하고, 정상 데이터만 이용해 가격 변화율을 계산합니다.
+
+두 번째 예제는 관측 이후 여러 horizon의 결과를 추적하는 구조를 단순화해 보여주며, 정상적으로 측정된 결과와 측정하지 못한 결과를 서로 다른 상태로 구분합니다.
 
 현재 공개 예제에서는 다음 과정을 확인할 수 있습니다.
 
 - 중복 관측 제거
 - 유효하지 않은 가격 데이터 구분
 - 관측 전후 가격 변화율 계산
-- 계산에 사용된 데이터와 제외된 데이터 구분
-- 기본적인 데이터 품질 요약
+- 여러 horizon의 Outcome 관리
+- OBSERVED / UNRESOLVED / CENSORED 상태 구분
+- 측정되지 않은 결과를 0% 수익률로 처리하지 않는 방식
+- horizon별 평균 및 중앙값 계산
 
-예제의 종목명, 시각, 가격은 모두 설명을 위해 만든 합성 값이며 실제 시장 데이터나 운영 데이터의 일부가 아닙니다.
+예제의 종목명, 시각, 가격과 결과는 모두 설명을 위해 만든 합성 값이며 실제 시장 데이터나 운영 데이터의 일부가 아닙니다.
 
 ---
 
@@ -184,11 +190,21 @@ Out-of-Sample Validation
 
 Python 3.10 이상 환경에서 실행할 수 있으며 Python 3.12 환경에서 실행을 확인했습니다.
 
+기본 관측 데이터 예제:
+
 ```powershell
 python src/analyze_sample.py
 ```
 
-예상 출력은 [실행 결과](docs/demo-output.md), 필드 설명은 [샘플 데이터 설명](docs/sample-data.md)을 참고하세요.
+Outcome 연구 예제:
+
+```powershell
+python src/analyze_research_outcomes.py
+```
+
+예상 출력은 [실행 결과](docs/demo-output.md), 각 필드와 상태의 설명은 [샘플 데이터 설명](docs/sample-data.md)을 참고하세요.
+
+프로젝트의 전체 구조는 [시스템 구조](docs/architecture.md), 연구 데이터와 OOS 검증 방식은 [연구 및 검증 방법](docs/research-validation.md)에서 확인할 수 있습니다.
 
 ---
 
@@ -199,9 +215,11 @@ us-stock-momentum-research/
 ├── README.md
 ├── .gitignore
 ├── src/
-│   └── analyze_sample.py
+│   ├── analyze_sample.py
+│   └── analyze_research_outcomes.py
 ├── samples/
-│   └── synthetic_observations.csv
+│   ├── synthetic_observations.csv
+│   └── synthetic_outcomes.csv
 └── docs/
     ├── sample-data.md
     ├── demo-output.md
@@ -209,8 +227,6 @@ us-stock-momentum-research/
     ├── architecture.md
     └── research-validation.md
 ```
-
----
 
 ## 공개하지 않는 항목
 
