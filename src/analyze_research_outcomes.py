@@ -97,20 +97,21 @@ def analyze(rows):
             continue
 
         seen.add(key)
-        horizon_status[horizon][status] += 1
-
+        
         if status == "UNRESOLVED":
             counts["unresolved"] += 1
+            horizon_status[horizon]["UNRESOLVED"] += 1
             continue
-
+        
         if status == "CENSORED":
             counts["censored"] += 1
+            horizon_status[horizon]["CENSORED"] += 1
             continue
-
+        
         reference_price = positive_decimal(row.get("reference_price"))
         outcome_price = positive_decimal(row.get("outcome_price"))
         actual_observed_at = (row.get("actual_observed_at") or "").strip()
-
+        
         if (
             reference_price is None
             or outcome_price is None
@@ -118,12 +119,13 @@ def analyze(rows):
         ):
             counts["invalid"] += 1
             continue
-
+        
         change = price_change_pct(reference_price, outcome_price)
-
+        
         counts["observed"] += 1
+        horizon_status[horizon]["OBSERVED"] += 1
         horizon_returns[horizon].append(change)
-
+        
     return counts, horizon_returns, horizon_status
 
 
